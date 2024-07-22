@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kyugmin.mappers.boardMapper">
+ <!-- 작성 -->
+ <insert id="write" parameterType="com.kyungmin.domain.boardVO">
+  insert into myBoard(bno, title, content, writer ,regDate)
+      values (#{bno}, #{title}, #{content}, #{writer}, now())
+ </insert>
+ 
+ <!-- 목록 -->
+ <select id="list" resultType="com.kyungmin.domain.boardVO">
+  select bno, title, writer, regDate
+      from myBoard
+          order by bno desc
+ </select>
+ <!-- 목록에서 하나 조회 -->
+ <select id="read" resultType="com.kyungmin.domain.boardVO">
+   select bno, title , writer,content, regDate, viewCnt ,regDate from myBoard where bno = #{bno} 
+ </select>
+ 
+ <update id="update" parameterType="com.kyungmin.domain.boardVO">
+   update myBoard set title =#{title} , content=#{content}, regDate = now() where bno = #{bno}
+ </update>
+ 
+ <delete id="delete" parameterType="com.kyungmin.domain.boardVO">
+ 
+  delete from myBoard where bno =#{bno}
+ </delete>
+</mapper>
